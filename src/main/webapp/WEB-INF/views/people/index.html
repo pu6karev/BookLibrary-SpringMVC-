@@ -8,13 +8,13 @@
 
 <div th:each="person : ${people}">
     <a th:href="@{/people/{id}(id=${person.getId()})}"
-       th:text="${person.getFirstName() + ' ,' +  person.getLastName()}">user</a>
+       th:text="${person.getFirstName() + ' ,' +  person.getLastName() + ' ,' + person.getBirthDate()}">user</a>
 </div>
 
 <br/>
 <hr/>
 
-<!--<a href="/people/new">Create new person</a>-->
+<a href="/people/new">Create a new person</a>
 
 </body>
 </html>
