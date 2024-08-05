@@ -1,11 +1,18 @@
 package org.example.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class Book {
     private int id;
 
+    @NotEmpty(message = "Name should not be empty")
     private String name;
+    @NotEmpty(message = "Author should not be empty")
     private String author;
 
+    @Min(value = 1500, message = "Year should be greater than 1500")
     private int year;
 
     public Book(){}
