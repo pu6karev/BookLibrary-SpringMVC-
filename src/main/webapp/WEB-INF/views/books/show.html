@@ -11,7 +11,7 @@
 
 <hr/>
 <div th:if="${owner}">
-    <span>The book is currently with the </span> <span th:text="${owner.getLastName()}">Person Name</span>
+    <span>The book is currently with the </span> <span th:text="${owner.getFirstName() + ' ' + owner.getLastName()}">Person Name</span>
 
     <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}">
         <input type="submit" value="Release the book"/>
@@ -24,7 +24,7 @@
     <form th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.getId()})}">
         <label for="person">Choose the person</label>
         <select th:object="${person}" th:field="*{id}" id="person">
-            <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getFirstName() + ', ' + person.getLastName()}">
+            <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getFirstName() + ' ' + person.getLastName()}">
             </option>
         </select>
         <input type="submit" value="Assign the book"/>
