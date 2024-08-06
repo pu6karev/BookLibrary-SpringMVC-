@@ -1,37 +1,35 @@
 package org.example.config;
 
+import jakarta.servlet.FilterRegistration;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
+import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.context.support.GenericWebApplicationContext;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.web.servlet.DispatcherServlet;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-
-public class DispatcherServletAnnotExtender extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class DispatcherServletAnnotExtender implements WebApplicationInitializer {
     @Override
-    protected Class<?>[] getRootConfigClasses() {
-        return new Class[0];
-    }
+    public void onStartup(final ServletContext sc) throws ServletException {
 
-    @Override
-    protected Class<?>[] getServletConfigClasses() {
-        return new Class[] {SpringConfig.class};
-    }
+        AnnotationConfigWebApplicationContext root = new AnnotationConfigWebApplicationContext();
 
-    @Override
-    protected String[] getServletMappings() {
-        return new String[] {"/"};
-    }
+        root.scan("org.example");
+        sc.addListener(new ContextLoaderListener(root));
 
+         // --- DispatcherServlet initialization
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(new GenericWebApplicationContext());
+        ServletRegistration.Dynamic appServlet = sc.addServlet("mvc", dispatcherServlet);
+        appServlet.setLoadOnStartup(1);
+        appServlet.addMapping("/");
 
-    @Override
-    public void onStartup(ServletContext aServletContext) throws ServletException {
-        super.onStartup(aServletContext);
-        registerHiddenFieldFilter(aServletContext);
-    }
-
-    private void registerHiddenFieldFilter(ServletContext aContext) {
-        aContext.addFilter("hiddenHttpMethodFilter",
-                new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
+         // --- HiddenHttpMethodFilter registration
+        FilterRegistration.Dynamic hiddenHttpMethodFilter = sc.addFilter(
+                "hiddenHttpMethodFilter", new HiddenHttpMethodFilter());
+        hiddenHttpMethodFilter.addMappingForUrlPatterns(null, true, "/*");
     }
 }
 

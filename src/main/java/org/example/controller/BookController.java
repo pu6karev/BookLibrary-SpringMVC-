@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.example.dao.BookDAO;
 import org.example.dao.PersonDAO;
 import org.example.model.Book;
@@ -10,8 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebParam;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.Optional;
 
 @Controller

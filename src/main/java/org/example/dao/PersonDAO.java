@@ -13,7 +13,6 @@ import java.util.List;
 public class PersonDAO {
 
     private final JdbcTemplate jdbcTemplate;
-    //private static Connection connection;
 
     public PersonDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
