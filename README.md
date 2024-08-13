@@ -8,7 +8,9 @@ The initial task was taken from a 2017 training course and used older versions o
 
 The project was created from scratch based on the course recommendations and thoroughly tested. Subsequently, it was refactored to use the latest versions of technologies, including Java 17, Spring 6, Tomcat 10, and others. Maven is used for project build and management. Spring Boot is not part of this project.
 
-A demonstration video of the project is available here: https://youtu.be/q8MYlNFh2_g
+A demonstration video of the project is available here: 
+https://youtu.be/q8MYlNFh2_g (eng)
+https://youtu.be/UBrctgjSqhg (rus)
 
 ## Features
 
